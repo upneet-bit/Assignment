@@ -29,6 +29,7 @@ export const UpdateModal = (props, ref) => {
         className="px-2 py-1 text-base font-normal border border-black rounded"
         name="description"
         required
+        placeholder={props.item.description}
         // value={props.item.description}
         onChange={(e) => {
           descriptionValue=e.target.value
