@@ -12,7 +12,7 @@ const ListofFavs = ({favs, setFavs}) => {
       await HeadlessModal({
         component: ViewModal,
         item:item,
-        backdropClasses: "mx-[35%] h-fit",
+        backdropClasses: "absolute top-4 left-0 right-0 m-auto w-fit",
         animations: {
           modal: {
             initial: { opacity: 0, x: -400, y: -400 },
@@ -27,7 +27,7 @@ const ListofFavs = ({favs, setFavs}) => {
       // const response = 
       await HeadlessModal({
         component: RemoveModal,
-        backdropClasses: "mx-[35%] h-fit ",
+        backdropClasses: "absolute top-4 left-0 right-0 m-auto w-fit",
         item:item,
         favs:favs,
         setFavs:setFavs
@@ -39,7 +39,7 @@ const ListofFavs = ({favs, setFavs}) => {
       await HeadlessModal({
         component: UpdateModal,
         item: item,
-        backdropClasses: "mx-[35%] h-fit",
+        backdropClasses: "absolute top-4 left-0 right-0 m-auto w-fit",
         favs:favs,
         setFavs:setFavs
       });

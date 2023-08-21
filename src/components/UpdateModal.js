@@ -28,6 +28,7 @@ export const UpdateModal = (props, ref) => {
       <ReuseInput
         className="px-2 py-1 text-base font-normal border border-black rounded"
         name="description"
+        type='textarea'
         required
         placeholder={props.item.description}
         // value={props.item.description}
