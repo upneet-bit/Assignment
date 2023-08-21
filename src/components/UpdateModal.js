@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { ReuseInput } from "@locoworks/reusejs-react-input";
 import { ReuseButton } from '@locoworks/reusejs-react-button';
 
 export const UpdateModal = (props, ref) => {
@@ -18,13 +19,13 @@ export const UpdateModal = (props, ref) => {
       >
       </div>
       <label>Please Enter the following Fields</label>
-      <input
+      <ReuseInput
         className="px-2 py-1 text-base font-normal border border-black rounded"
         readOnly
         value={nameValue}
         name="name"
       />
-      <input
+      <ReuseInput
         className="px-2 py-1 text-base font-normal border border-black rounded"
         name="description"
         required
@@ -34,7 +35,7 @@ export const UpdateModal = (props, ref) => {
         }}
       />
       <ReuseButton
-        className="px-3 py-1 rounded "
+        className="px-3 py-1 rounded bg-violet-500"
         onClick={() => {
           if (descriptionValue === "") {
             props.onAction(false);
