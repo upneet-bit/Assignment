@@ -1,19 +1,24 @@
 import React, { useState } from 'react'
 import { ReuseInput } from "@locoworks/reusejs-react-input";
 import { ReuseButton } from '@locoworks/reusejs-react-button';
+import { useDebounceEffect } from '@locoworks/reusejs-toolkit-react-hooks';
 import { useNavigate } from 'react-router-dom';
 
 const AddFav = () => {
     const defaultText="p-5 font-bold text-gray-500";
     const navigate = useNavigate();
+    const [squery, setsquery] = useState("");
     const [results, setResults] = useState([]);
     const [selectedVal, setselectedVal] = useState('');
     const [description, setdescription] = useState('');
-    
-    const changeHandler = async (e)=>{
-        if(e.target.value!==''){
+
+    const getData= async()=>{
+        if(squery===""){
+            setResults([]);
+        }
+        else{
             try {
-                await fetch(`https://api.npms.io/v2/search?q=${e.target.value}`)
+                await fetch(`https://api.npms.io/v2/search?q=${squery}`)
                 .then((res)=>res.json())
                 .then((res)=>{
                     setResults(res.results);
@@ -22,11 +27,15 @@ const AddFav = () => {
             } catch (error) {
                 console.log(error);
             }
-        }else{
-            setResults([]);
         }
     }
 
+    useDebounceEffect(getData,500,[squery]);
+    
+    const changeHandler = async (e)=>{
+        setsquery(e.target.value);
+    }
+    
     const submitHandler = (e) => {
         e.preventDefault();
         const state={name:selectedVal,description};
@@ -42,7 +51,8 @@ const AddFav = () => {
             <p className={defaultText} >Search for NPM packages</p>
             
             <ReuseInput className='w-full p-3 h-14 focus:border-black'
-                placeholder='Angular' onChange={changeHandler}
+                 placeholder='Angular'
+                 onChange={changeHandler}
             />
             {/* {console.log(results)} */}
 
@@ -60,7 +70,9 @@ const AddFav = () => {
                 <p className={defaultText}  >Why is it your favourite ?</p>
                 <textarea placeholder='Mention here!' rows={4} className='w-5/6 p-3 m-5 border-2 border-gray-700' required 
                     onChange={(e)=>setdescription(e.target.value)} />
-                <ReuseButton onClick={submitHandler} className='justify-center cursor-pointer w-28 h-14 bg-violet-500'>
+                <ReuseButton 
+                    onClick={submitHandler} 
+                    className='justify-center cursor-pointer w-28 h-14 bg-violet-500'>
                     Submit
                 </ReuseButton>
             </div>
